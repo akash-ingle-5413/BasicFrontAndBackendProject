@@ -1,6 +1,5 @@
 let password = document.getElementById("password");
 
-
 let email = document.getElementById("email");
 let Par = document.getElementById("ValidData");
 
@@ -15,9 +14,6 @@ function ToCheckEmailFormate() {
     }
 }
 
-
-let password = document.getElementById("password");
-let Par = document.getElementById("ValidData");
 
 function ToCheckPassword() {
     let pass = password.value;
