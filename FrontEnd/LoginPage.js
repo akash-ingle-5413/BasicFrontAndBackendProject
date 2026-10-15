@@ -12,7 +12,5 @@ function ToCheckEmailFormate() {
     } else if (!emailText.includes("@") ||
                !emailText.includes(".")) {
         Par.innerText = "Invalid Email";
-    } else {
-        Par.innerText = "Email format looks valid";
     }
 }
