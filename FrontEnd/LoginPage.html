@@ -14,7 +14,6 @@
     <form action="/login" method="POST">
 
         <label for="email">Email:</label>
-        <p id="ValidData"></p>
         <input
             type="email"
             id="email"
@@ -22,11 +21,12 @@
             placeholder="Enter Your Email"
             required
         >
+        <p id="ValidData"></p>
 
         <br><br>
 
         <label for="password">Password:</label>
-        <p id="ValidData"></p>
+       
         <input
             type="password"
             id="password"
@@ -35,9 +35,11 @@
             required
         >
 
+         <p id="ValidData"></p>
+
         <br><br>
 
-        <button type="submit" onclick="ToCheckEmailFormate()" onclick="ToCheckPassword()"> Login </button>
+        <button type="submit" onclick="ValidateForm()"> Login </button>
 
         <p>
             New user? Create a new account.

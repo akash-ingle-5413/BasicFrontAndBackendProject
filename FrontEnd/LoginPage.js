@@ -36,3 +36,9 @@ function ToCheckPassword() {
     }
 }
 
+function ValidateForm() {
+    let validEmail = ToCheckEmailFormate();
+    let validPassword = ToCheckPassword();
+
+    return validEmail && validPassword;
+}
