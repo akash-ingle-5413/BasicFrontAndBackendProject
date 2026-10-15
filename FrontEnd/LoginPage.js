@@ -14,3 +14,29 @@ function ToCheckEmailFormate() {
         Par.innerText = "Invalid Email";
     }
 }
+
+
+let password = document.getElementById("password");
+let Par = document.getElementById("ValidData");
+
+function ToCheckPassword() {
+    let pass = password.value;
+
+    let hasUppercase = /[A-Z]/.test(pass);
+    let hasNumber = /[0-9]/.test(pass);
+    let hasSpecial = /[^A-Za-z0-9]/.test(pass);
+    let hasLength = pass.length >= 8;
+
+    if (!hasUppercase) {
+        Par.innerText = "Password must contain one uppercase letter";
+    } else if (!hasNumber) {
+        Par.innerText = "Password must contain one number";
+    } else if (!hasSpecial) {
+        Par.innerText = "Password must contain one special character";
+    } else if (!hasLength) {
+        Par.innerText = "Password must contain at least 8 characters";
+    } else {
+        Par.innerText = "Password is valid!";
+    }
+}
+
