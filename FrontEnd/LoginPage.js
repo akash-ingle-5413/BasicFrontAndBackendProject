@@ -1,39 +1,57 @@
-let password = document.getElementById("password");
 
 let email = document.getElementById("email");
-let Par = document.getElementById("ValidData");
+let password = document.getElementById("password");
+
+let EmailError = document.getElementById("EmailError");
+let PasswordError = document.getElementById("PasswordError");
 
 function ToCheckEmailFormate() {
     let emailText = email.value.trim();
 
-    if (emailText.length === 0) {
-        Par.innerText = "Email cannot be empty";
-    } else if (!emailText.includes("@") ||
-               !emailText.includes(".")) {
-        Par.innerText = "Invalid Email";
+    if (emailText === "") {
+        EmailError.innerText = "Email cannot be empty";
+        return false;
     }
-}
 
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(emailText)) {
+        EmailError.innerText = "Please enter a valid email";
+        return false;
+    }
+
+    EmailError.innerText = "";
+    return true;
+}
 
 function ToCheckPassword() {
     let pass = password.value;
+    let errors = [];
 
-    let hasUppercase = /[A-Z]/.test(pass);
-    let hasNumber = /[0-9]/.test(pass);
-    let hasSpecial = /[^A-Za-z0-9]/.test(pass);
-    let hasLength = pass.length >= 8;
-
-    if (!hasUppercase) {
-        Par.innerText = "Password must contain one uppercase letter";
-    } else if (!hasNumber) {
-        Par.innerText = "Password must contain one number";
-    } else if (!hasSpecial) {
-        Par.innerText = "Password must contain one special character";
-    } else if (!hasLength) {
-        Par.innerText = "Password must contain at least 8 characters";
-    } else {
-        Par.innerText = "Password is valid!";
+    if (!/[A-Z]/.test(pass)) {
+        errors.push("one uppercase letter");
     }
+
+    if (!/[0-9]/.test(pass)) {
+        errors.push("one number");
+    }
+
+    if (!/[^A-Za-z0-9]/.test(pass)) {
+        errors.push("one special character");
+    }
+
+    if (pass.length < 8) {
+        errors.push("at least 8 characters");
+    }
+
+    if (errors.length > 0) {
+        PasswordError.innerText =
+            "Password must contain " + errors.join(", ");
+        return false;
+    }
+
+    PasswordError.innerText = "";
+    return true;
 }
 
 function ValidateForm() {

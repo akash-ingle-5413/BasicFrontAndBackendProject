@@ -11,7 +11,7 @@
     <h1>Student Management System</h1>
     <h2>Login</h2>
 
-    <form action="/login" method="POST">
+    <form action="/login" method="POST" onsubmit="return ValidateForm()" novalidate>
 
         <label for="email">Email:</label>
         <input
@@ -21,7 +21,7 @@
             placeholder="Enter Your Email"
             required
         >
-        <p id="ValidData"></p>
+         <p id="EmailError" style="color: red;"></p>
 
         <br><br>
 
@@ -34,17 +34,16 @@
             placeholder="Enter Your Password"
             required
         >
-         <p id="ValidData"></p>
+        <p id="PasswordError" style="color: red;"></p>
 
         <br><br>
 
-        <button type="submit" onclick="ValidateForm()"> Login </button>
+        <button type="submit"> Login </button>
 
         <p>
             New user? Create a new account.
             <a href="RegisterPage.html">Register</a>
         </p>
-        <!-- <p id="ValidData"></p> -->
     </form>
 
     <script src="LoginPage.js"></script>
