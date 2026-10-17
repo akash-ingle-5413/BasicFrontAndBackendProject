@@ -54,6 +54,27 @@ function ToCheckPassword() {
     return true;
 }
 
+let togglePassword = document.getElementById("togglePassword");
+
+togglePassword.addEventListener("click", function () {
+    let isHidden = password.type === "password";
+
+    password.type = isHidden ? "text" : "password";
+
+    togglePassword.innerText = isHidden ? "🙈" : "👁";
+
+    togglePassword.setAttribute(
+        "aria-label",
+        isHidden ? "Hide password" : "Show password"
+    );
+
+    togglePassword.setAttribute(
+        "aria-pressed",
+        String(isHidden)
+    );
+});
+
+
 function ValidateForm() {
     let validEmail = ToCheckEmailFormate();
     let validPassword = ToCheckPassword();
