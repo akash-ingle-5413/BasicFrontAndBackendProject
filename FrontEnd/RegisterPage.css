@@ -1,0 +1,201 @@
+
+/* Reset default spacing and make sizing predictable */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Give the page a modern background and center the form */
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 16px;
+    background: linear-gradient(135deg, #dbeafe, #f5f3ff, #eff6ff);
+    color: #1e293b;
+}
+
+/* Main white card containing the registration form */
+.register-container {
+    width: 100%;
+    max-width: 480px;
+    padding: 35px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 15px 45px rgba(37, 99, 235, 0.13);
+}
+
+/* Style the website title */
+h1 {
+    text-align: center;
+    color: #2563eb;
+    font-size: 25px;
+    line-height: 1.4;
+    margin-bottom: 12px;
+}
+
+/* Style the registration heading */
+h2 {
+    text-align: center;
+    color: #1e293b;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+/* Small description below the headings */
+.subtitle {
+    text-align: center;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+/* Place each field label on its own line */
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 7px;
+}
+
+/* Style text, email, date, password and dropdown fields */
+input,
+select {
+    width: 100%;
+    padding: 12px 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    background-color: #f8fafc;
+    color: #1e293b;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+/* Highlight the field currently being edited */
+input:focus,
+select:focus {
+    border-color: #3b82f6;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.13);
+}
+
+/* Space between one field and the next */
+label:not(:first-child) {
+    margin-top: 15px;
+}
+
+/* Display validation messages below their respective fields */
+.error {
+    min-height: 0;
+    color: #dc2626;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-top: 5px;
+}
+
+/* Keep a small gap before the password hint */
+.hint {
+    color: #64748b;
+    font-size: 11px;
+    line-height: 1.5;
+    margin-top: 7px;
+}
+
+/* Create a positioning area for the password eye button */
+.password-wrapper {
+    position: relative;
+}
+
+/* Leave room on the right for the eye icon */
+.password-wrapper input {
+    padding-right: 48px;
+}
+
+/* Place the eye button inside the password field */
+.show-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: #64748b;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px;
+}
+
+/* Change the eye button color on hover */
+.show-password:hover {
+    color: #2563eb;
+}
+
+/* Style the Create Account button */
+.register-button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 22px;
+    border: none;
+    border-radius: 9px;
+    background: linear-gradient(135deg, #3b82f6, #4f46e5);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Make the button interactive */
+.register-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.25);
+}
+
+/* Show a clear pressed state when clicking the button */
+.register-button:active {
+    transform: translateY(0);
+}
+
+/* Style the existing-account message */
+.login-link {
+    margin-top: 22px;
+    text-align: center;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* Style the Login link */
+a {
+    color: #2563eb;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Underline the link when hovered */
+a:hover {
+    text-decoration: underline;
+}
+
+/* Adjust the card for small mobile screens */
+@media (max-width: 480px) {
+    .register-container {
+        padding: 25px 20px;
+        border-radius: 15px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+}
