@@ -1,13 +1,148 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RegisterPage</title>
-    <link rel="Stylesheet" href="RegisterPage.css">
+
+    <title>Student Registration</title>
+
+    <!-- Connect the CSS file to design this registration page -->
+    <link rel="stylesheet" href="RegisterPage.css">
 </head>
 <body>
-    
+
+    <!-- Main registration card -->
+    <div class="register-container">
+
+        <!-- Website heading -->
+        <h1>Student Management System</h1>
+        <h2>Create Your Account</h2>
+
+        <p class="subtitle">
+            Register to get started with your student account.
+        </p>
+
+        <!-- Registration form; JavaScript checks the fields before proceeding -->
+        <form id="registerForm" novalidate>
+
+            <!-- Name field: takes the student's full name -->
+            <label for="name">Full Name</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter your full name"
+                autocomplete="name"
+                required
+            >
+            <p class="error" id="NameError"></p>
+
+            <!-- Email field: takes the student's email address -->
+            <label for="email">Email Address</label>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                autocomplete="email"
+                required
+            >
+            <p class="error" id="EmailError"></p>
+
+            <!-- Roll number field: identifies the student in the college -->
+            <label for="rollNumber">Roll Number</label>
+            <input
+                type="text"
+                id="rollNumber"
+                name="rollNumber"
+                placeholder="Enter your roll number"
+                required
+            >
+            <p class="error" id="RollError"></p>
+
+            <!-- Department field: lets the student select their course -->
+            <label for="department">Department / Course</label>
+            <select id="department" name="department" required>
+                <option value="">Select your department</option>
+                <option value="BCA">BCA</option>
+                <option value="MCA">MCA</option>
+                <option value="BBA">BBA</option>
+                <option value="MBA">MBA</option>
+                <option value="B.Tech">B.Tech</option>
+                <option value="M.Tech">M.Tech</option>
+                <option value="B.Sc">B.Sc</option>
+                <option value="M.Sc">M.Sc</option>
+                <option value="B.Com">B.Com</option>
+                <option value="Other">Other</option>
+            </select>
+            <p class="error" id="DepartmentError"></p>
+
+            <!-- Date of birth field: collects the student's birth date -->
+            <label for="dob">Date of Birth</label>
+            <input
+                type="date"
+                id="dob"
+                name="dob"
+                autocomplete="bday"
+                required
+            >
+            <p class="error" id="DobError"></p>
+
+            <!-- Password field: lets the student create a password -->
+            <label for="password">Password</label>
+            <div class="password-wrapper">
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Create a password"
+                    autocomplete="new-password"
+                    required
+                >
+
+                <!-- This button shows or hides the password -->
+                <button
+                    type="button"
+                    class="show-password"
+                    id="togglePassword"
+                    aria-label="Show password"
+                    aria-pressed="false"
+                >👁</button>
+            </div>
+            <p class="hint">
+                Use 8+ characters, an uppercase letter, a number
+                and a special character.
+            </p>
+            <p class="error" id="PasswordError"></p>
+
+            <!-- Confirm password: checks that both password entries match -->
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="Re-enter your password"
+                autocomplete="new-password"
+                required
+            >
+            <p class="error" id="ConfirmPasswordError"></p>
+
+            <!-- Submit button: starts registration validation -->
+            <button type="submit" class="register-button">
+                Create Account
+            </button>
+
+            <!-- Link for students who already have an account -->
+            <p class="login-link">
+                Already have an account?
+                <a href="LoginPage.html">Login</a>
+            </p>
+
+        </form>
+    </div>
+
+    <!-- Load JavaScript after the HTML elements exist -->
     <script src="RegisterPage.js"></script>
 </body>
 </html>
