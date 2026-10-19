@@ -1,0 +1,1834 @@
+/* =========================================================
+   SECTION 1: GLOBAL RESET
+   ========================================================= */
+
+/*
+   Browsers add default margins and padding to some elements.
+   This reset removes them so we can control the layout ourselves.
+*/
+* {
+    margin: 0;
+    padding: 0;
+
+    /*
+       With border-box, width includes content, padding, and border.
+       This makes calculating element sizes much easier.
+    */
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   SECTION 2: DESIGN VARIABLES
+   ========================================================= */
+
+/*
+   :root stores reusable CSS variables.
+
+   Instead of writing the same color many times, we define it once.
+   Example: var(--primary) uses the primary blue color.
+
+   If you change a variable here, all elements using it update.
+*/
+:root {
+    /* Main brand colors */
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --primary-light: #eff6ff;
+
+    /* Sidebar colors */
+    --sidebar-bg: #172554;
+    --sidebar-text: #cbd5e1;
+
+    /* Page and card colors */
+    --page-bg: #f1f5f9;
+    --surface: #ffffff;
+
+    /* Text colors */
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+
+    /* Borders and separators */
+    --border: #e2e8f0;
+
+    /* Success status colors */
+    --success: #15803d;
+    --success-bg: #dcfce7;
+
+    /* Warning status colors */
+    --warning: #b45309;
+    --warning-bg: #fef3c7;
+
+    /* Error status colors */
+    --danger: #b91c1c;
+    --danger-bg: #fee2e2;
+
+    /* Additional icon colors */
+    --purple: #7c3aed;
+    --purple-bg: #ede9fe;
+
+    --orange: #c2410c;
+    --orange-bg: #ffedd5;
+
+    --green: #15803d;
+    --green-bg: #dcfce7;
+
+    /* Reusable rounded-corner sizes */
+    --radius: 14px;
+    --radius-small: 9px;
+
+    /* Subtle shadow used on dashboard cards */
+    --shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+
+    /* Duration used by hover and focus transitions */
+    --transition: 0.2s ease;
+}
+
+
+/* =========================================================
+   SECTION 3: BODY AND DEFAULT ELEMENTS
+   ========================================================= */
+
+body {
+    /*
+       Uses Inter when available, then system fonts as fallbacks.
+       This avoids depending on one specific font being installed.
+    */
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+
+    /* Applies the light background to the complete page. */
+    background: var(--page-bg);
+
+    /* Default text color for the dashboard. */
+    color: var(--text-primary);
+
+    /* Standard text size and line spacing. */
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/*
+   Makes buttons, inputs, and dropdowns inherit the page font.
+   Otherwise, some browsers use different default fonts.
+*/
+button,
+input,
+select {
+    font: inherit;
+}
+
+/*
+   Removes the default underline from links.
+   Individual links can still be underlined on hover if desired.
+*/
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Shows the hand cursor over buttons. */
+button {
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   SECTION 4: MAIN APPLICATION CONTAINER
+   ========================================================= */
+
+/*
+   This is the outermost wrapper around the header, sidebar,
+   and main content.
+*/
+.app-container {
+    /*
+       Ensures the application is at least as tall as the screen.
+       The page can grow taller when its content requires it.
+    */
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   SECTION 5: TOP HEADER
+   ========================================================= */
+
+.top-header {
+    /* Sets the header's normal height. */
+    height: 72px;
+
+    /* Adds space to the left and right of header content. */
+    padding: 0 30px;
+
+    background: var(--surface);
+
+    /* Separates the header from the content below it. */
+    border-bottom: 1px solid var(--border);
+
+    /*
+       Flexbox places the logo, search box, and profile
+       in one horizontal row.
+    */
+    display: flex;
+
+    /* Vertically centers the header's children. */
+    align-items: center;
+
+    /*
+       Distributes free horizontal space between the children.
+    */
+    justify-content: space-between;
+
+    /* Adds a minimum gap between header sections. */
+    gap: 28px;
+
+    /*
+       Keeps the header visible at the top when the page scrolls.
+    */
+    position: sticky;
+    top: 0;
+
+    /*
+       Places the header above normal page content.
+       The sidebar has a lower stacking level.
+    */
+    z-index: 100;
+}
+
+
+/* =========================================================
+   SECTION 6: BRAND AND LOGO
+   ========================================================= */
+
+.brand {
+    display: flex;
+    align-items: center;
+
+    /* Adds space between the icon and application name. */
+    gap: 11px;
+
+    /*
+       Prevents the brand from shrinking when the search box
+       or other header content needs space.
+    */
+    flex-shrink: 0;
+}
+
+.brand-icon {
+    width: 40px;
+    height: 40px;
+
+    background: var(--primary);
+    color: white;
+
+    /* Rounds the corners of the logo background. */
+    border-radius: 11px;
+
+    /* Centers the graduation-cap icon. */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+}
+
+.brand-name {
+    font-size: 20px;
+    font-weight: 800;
+
+    /* Slightly tightens the spacing between letters. */
+    letter-spacing: -0.6px;
+}
+
+/* Highlights the second part of the brand name. */
+.brand-name span {
+    color: var(--primary);
+}
+
+
+/* =========================================================
+   SECTION 7: HEADER SEARCH BOX
+   ========================================================= */
+
+.header-search {
+    /*
+       The search box can grow but cannot exceed 460px.
+       width: 100% lets it use available space up to that limit.
+    */
+    max-width: 460px;
+    width: 100%;
+
+    height: 42px;
+
+    /* Places the search icon and input next to each other. */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 0 14px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-small);
+
+    background: #f8fafc;
+    color: var(--text-secondary);
+
+    /* Smoothly animates border and background changes. */
+    transition: var(--transition);
+}
+
+/*
+   :focus-within applies when the input inside this container
+   has keyboard or pointer focus.
+*/
+.header-search:focus-within {
+    border-color: var(--primary);
+    background: white;
+
+    /* Adds a soft ring around the active search box. */
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.header-search input {
+    /*
+       Allows the input to fill the remaining search-box width.
+       min-width: 0 allows it to shrink inside a flex container.
+    */
+    width: 100%;
+    min-width: 0;
+
+    /* Removes the browser's default input border and outline. */
+    border: none;
+    outline: none;
+
+    /* Lets the search container supply the background. */
+    background: transparent;
+
+    color: var(--text-primary);
+}
+
+/* Gives placeholder text a lighter color than typed text. */
+.header-search input::placeholder {
+    color: #94a3b8;
+}
+
+
+/* =========================================================
+   SECTION 8: HEADER ACTIONS AND PROFILE
+   ========================================================= */
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    /* Keeps the profile and notification button from shrinking. */
+    flex-shrink: 0;
+}
+
+.icon-button {
+    width: 40px;
+    height: 40px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: transparent;
+    color: #475569;
+
+    font-size: 18px;
+
+    /*
+       position: relative creates a positioning reference
+       for the notification dot inside this button.
+    */
+    position: relative;
+
+    transition: var(--transition);
+}
+
+/* Changes the notification button appearance on hover. */
+.icon-button:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.notification-dot {
+    width: 8px;
+    height: 8px;
+
+    background: #ef4444;
+
+    /*
+       A white border helps the red dot stand out against
+       the background behind it.
+    */
+    border: 2px solid white;
+    border-radius: 50%;
+
+    /*
+       Positions the dot near the upper-right corner
+       of the notification button.
+    */
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-avatar {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+    background: #dbeafe;
+    color: var(--primary-dark);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 800;
+}
+
+.profile-info {
+    /*
+       Stacks the username and role vertically.
+    */
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.profile-info strong {
+    font-size: 13px;
+}
+
+.profile-info span {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.profile-arrow {
+    color: var(--text-secondary);
+    font-size: 11px;
+    margin-left: 5px;
+}
+
+
+/* =========================================================
+   SECTION 9: SIDEBAR LAYOUT
+   ========================================================= */
+
+.sidebar {
+    width: 250px;
+
+    background: var(--sidebar-bg);
+    color: var(--sidebar-text);
+
+    /*
+       The sidebar remains fixed on desktop.
+       It does not move away when the main content scrolls.
+    */
+    position: fixed;
+
+    /*
+       Starts directly below the 72px header.
+    */
+    top: 72px;
+
+    /* Anchors the sidebar to the left side of the screen. */
+    left: 0;
+
+    /* Extends the sidebar to the bottom of the viewport. */
+    bottom: 0;
+
+    padding: 25px 16px 18px;
+
+    /*
+       If the sidebar's content becomes too tall,
+       the sidebar can scroll independently.
+    */
+    overflow-y: auto;
+
+    /*
+       Allows the sidebar to arrange its children vertically.
+    */
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Small section headings inside the sidebar. */
+.sidebar-label {
+    padding: 0 12px;
+    margin-bottom: 12px;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    /* Spreads out letters for the small uppercase heading. */
+    letter-spacing: 1.2px;
+}
+
+/*
+   Adds space above the PREFERENCES heading
+   so it is visually separated from the main menu.
+*/
+.secondary-label {
+    margin-top: 27px;
+}
+
+
+/* =========================================================
+   SECTION 10: SIDEBAR NAVIGATION LINKS
+   ========================================================= */
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+
+    /* Space between each navigation link. */
+    gap: 6px;
+}
+
+.nav-link {
+    min-height: 46px;
+    padding: 0 13px;
+
+    border-radius: 9px;
+
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    color: var(--sidebar-text);
+    font-weight: 500;
+
+    transition: var(--transition);
+}
+
+/*
+   Giving icons a fixed width helps the link text line up
+   even when the icons have different shapes.
+*/
+.nav-link i {
+    width: 19px;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* Changes a link's background when the pointer hovers over it. */
+.nav-link:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/*
+   The active class highlights the current page.
+   HTML must add class="active" to the current navigation link.
+*/
+.nav-link.active {
+    color: white;
+    background: var(--primary);
+
+    box-shadow: 0 5px 12px rgba(37, 99, 235, 0.2);
+}
+
+
+/* =========================================================
+   SECTION 11: SIDEBAR HELP CARD
+   ========================================================= */
+
+.sidebar-help {
+    /*
+       In the flex sidebar, auto top margin pushes the help card
+       toward the bottom, after the navigation links.
+    */
+    margin-top: auto;
+    margin-bottom: 20px;
+
+    padding: 16px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+
+    /* A slightly lighter transparent background than the sidebar. */
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.help-icon {
+    color: #93c5fd;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.sidebar-help h3 {
+    color: white;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.sidebar-help p {
+    color: #aabbd2;
+    font-size: 12px;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.sidebar-help a {
+    color: #93c5fd;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.sidebar-help a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   SECTION 12: LOGOUT LINK
+   ========================================================= */
+
+.logout-link {
+    min-height: 44px;
+    padding: 0 13px;
+
+    /* Separates logout from the help card above it. */
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    color: #fca5a5;
+
+    transition: var(--transition);
+}
+
+.logout-link:hover {
+    color: white;
+}
+
+
+/* =========================================================
+   SECTION 13: MAIN CONTENT LAYOUT
+   ========================================================= */
+
+.main-content {
+    /*
+       The sidebar is 250px wide and fixed.
+       This margin leaves room for it so content doesn't
+       appear underneath the sidebar on desktop.
+    */
+    margin-left: 250px;
+
+    /* Space around the main dashboard content. */
+    padding: 30px;
+
+    /*
+       Prevents the main area from forcing its children
+       wider than the available layout.
+    */
+    min-width: 0;
+}
+
+
+/* =========================================================
+   SECTION 14: PAGE HEADING
+   ========================================================= */
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.welcome-text {
+    color: var(--primary);
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+
+    margin-bottom: 5px;
+}
+
+.page-heading h1 {
+    font-size: 29px;
+    line-height: 1.3;
+    letter-spacing: -0.8px;
+
+    margin-bottom: 7px;
+}
+
+.page-description {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+
+/* Academic year selector button. */
+.date-button {
+    min-height: 42px;
+    padding: 0 14px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-small);
+
+    background: white;
+    color: #334155;
+
+    /*
+       Keeps the button text on one line when space allows.
+    */
+    white-space: nowrap;
+
+    transition: var(--transition);
+}
+
+.date-button:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+
+/* =========================================================
+   SECTION 15: KPI GRID
+   ========================================================= */
+
+.kpi-grid {
+    display: grid;
+
+    /*
+       repeat(4, minmax(0, 1fr)) means:
+       - Create four columns.
+       - Give every column an equal share of the available width.
+       - Allow columns to shrink below their content's minimum size.
+    */
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.kpi-card {
+    min-width: 0;
+    padding: 22px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    background: var(--surface);
+    box-shadow: var(--shadow);
+
+    /*
+       Smoothly animates movement and shadow changes.
+    */
+    transition: transform var(--transition),
+                box-shadow var(--transition);
+}
+
+/* Lifts the card slightly when the user hovers over it. */
+.kpi-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.07);
+}
+
+.kpi-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Shared styling for KPI icons and action icons. */
+.kpi-icon,
+.action-icon {
+    width: 44px;
+    height: 44px;
+
+    border-radius: 11px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Icons should keep their specified dimensions. */
+    flex-shrink: 0;
+
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   SECTION 16: ICON COLOR VARIATIONS
+   ========================================================= */
+
+/*
+   These classes change the foreground and background colors.
+   Multiple elements can reuse the same color classes.
+*/
+
+.blue-icon {
+    color: var(--primary);
+    background: var(--primary-light);
+}
+
+.green-icon {
+    color: var(--green);
+    background: var(--green-bg);
+}
+
+.purple-icon {
+    color: var(--purple);
+    background: var(--purple-bg);
+}
+
+.orange-icon {
+    color: var(--orange);
+    background: var(--orange-bg);
+}
+
+
+/* =========================================================
+   SECTION 17: KPI TREND BADGES
+   ========================================================= */
+
+.trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    padding: 5px 8px;
+
+    border-radius: 6px;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    /* Prevents the percentage text from wrapping. */
+    white-space: nowrap;
+}
+
+/* Green means the example metric increased. */
+.trend.positive {
+    color: var(--success);
+    background: var(--success-bg);
+}
+
+/* Red means the example metric decreased. */
+.trend.negative {
+    color: var(--danger);
+    background: var(--danger-bg);
+}
+
+.kpi-label {
+    color: var(--text-secondary);
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.kpi-card h2 {
+    /*
+       clamp(minimum, preferred, maximum) lets the number
+       scale with the viewport while keeping it within limits.
+    */
+    font-size: clamp(23px, 2vw, 31px);
+
+    line-height: 1.3;
+    letter-spacing: -0.8px;
+
+    margin-bottom: 9px;
+}
+
+.kpi-footnote {
+    color: #94a3b8;
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   SECTION 18: REUSABLE PANELS
+   ========================================================= */
+
+/*
+   A panel is a reusable white card.
+   The analytics, quick actions, activities, and events
+   sections all use the panel class.
+*/
+.panel {
+    min-width: 0;
+    padding: 23px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+}
+
+/* Aligns the heading and optional controls inside each panel. */
+.panel-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 15px;
+    margin-bottom: 23px;
+}
+
+.panel-heading h2 {
+    font-size: 17px;
+    line-height: 1.4;
+    margin-bottom: 5px;
+}
+
+.panel-heading p {
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.panel-heading select {
+    max-width: 145px;
+    min-height: 36px;
+    padding: 0 9px;
+
+    border: 1px solid var(--border);
+    border-radius: 7px;
+
+    background: white;
+    color: #475569;
+
+    outline: none;
+}
+
+
+/* =========================================================
+   SECTION 19: MIDDLE SECTION GRID
+   ========================================================= */
+
+.middle-grid {
+    display: grid;
+
+    /*
+       3fr and 2fr divide the available width into five parts.
+       The analytics panel gets 3 parts (about 60%).
+       Quick actions gets 2 parts (about 40%).
+    */
+    grid-template-columns: minmax(0, 3fr) minmax(290px, 2fr);
+
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+
+/* =========================================================
+   SECTION 20: ATTENDANCE CHART LAYOUT
+   ========================================================= */
+
+.chart-placeholder {
+    display: flex;
+
+    /* Gives the chart enough vertical space to be readable. */
+    height: 235px;
+
+    /* Space between percentage labels and the graph. */
+    gap: 12px;
+}
+
+.chart-y-axis {
+    display: flex;
+    flex-direction: column;
+
+    /*
+       Distributes percentage labels from top to bottom.
+    */
+    justify-content: space-between;
+
+    /*
+       Reserves room for the day labels at the bottom
+       of the graph area.
+    */
+    padding-bottom: 29px;
+
+    color: #94a3b8;
+    font-size: 10px;
+}
+
+.chart-area {
+    /*
+       flex: 1 allows the chart to take the remaining width.
+       min-width: 0 allows it to shrink on smaller screens.
+    */
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    /*
+       Creates the positioning reference for grid lines
+       and the SVG chart.
+    */
+    position: relative;
+}
+
+/* Grid lines placed behind the SVG graph. */
+.chart-grid-lines {
+    position: absolute;
+
+    /*
+       The grid begins at the top and leaves room at the
+       bottom for the day labels.
+    */
+    inset: 0 0 29px 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    /* Prevents the grid lines from intercepting pointer input. */
+    pointer-events: none;
+}
+
+.chart-grid-lines span {
+    width: 100%;
+    border-top: 1px dashed #e2e8f0;
+}
+
+/* Sizes the SVG graph inside the chart area. */
+.attendance-chart {
+    position: relative;
+
+    /*
+       Draws the graph above the grid lines.
+    */
+    z-index: 1;
+
+    width: 100%;
+    height: calc(100% - 29px);
+
+    /*
+       Prevents the SVG drawing from being clipped
+       if a point extends slightly outside its box.
+    */
+    overflow: visible;
+}
+
+/* Day labels below the graph. */
+.chart-x-axis {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+
+    padding-top: 10px;
+
+    color: #94a3b8;
+    font-size: 10px;
+}
+
+.chart-legend {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-top: 15px;
+
+    color: var(--text-secondary);
+    font-size: 11px;
+}
+
+.legend-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+    background: var(--primary);
+}
+
+
+/* =========================================================
+   SECTION 21: QUICK ACTIONS
+   ========================================================= */
+
+.quick-actions-grid {
+    display: flex;
+    flex-direction: column;
+
+    /* Space between Add Student, Attendance, Grades, and Reports. */
+    gap: 12px;
+}
+
+.action-card {
+    min-width: 0;
+    padding: 13px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    border: 1px solid var(--border);
+    border-radius: 11px;
+
+    background: white;
+
+    transition: var(--transition);
+}
+
+/* Changes the card's appearance when hovered over. */
+.action-card:hover {
+    border-color: #bfdbfe;
+    background: #f8fbff;
+
+    /* Moves the card slightly to the right. */
+    transform: translateX(3px);
+}
+
+.action-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+}
+
+/*
+   Selects the second direct child span of each action card.
+   That span contains the title and subtitle.
+*/
+.action-card > span:nth-child(2) {
+    /*
+       flex: 1 lets the text use available space.
+       min-width: 0 allows long text to shrink when necessary.
+    */
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.action-card strong {
+    font-size: 12px;
+}
+
+.action-card small {
+    color: var(--text-secondary);
+    font-size: 10px;
+}
+
+.action-arrow {
+    color: #94a3b8;
+    font-size: 12px;
+
+    /* Keeps the arrow from shrinking when text needs space. */
+    flex-shrink: 0;
+}
+
+/* Highlights the arrow when the action card is hovered over. */
+.action-card:hover .action-arrow {
+    color: var(--primary);
+}
+
+
+/* =========================================================
+   SECTION 22: BOTTOM SECTION GRID
+   ========================================================= */
+
+.bottom-grid {
+    display: grid;
+
+    /*
+       Gives recent activities about 60% of the width
+       and upcoming events about 40%.
+    */
+    grid-template-columns: minmax(0, 3fr) minmax(270px, 2fr);
+
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+/* Style for links such as "View all". */
+.view-all {
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 700;
+
+    /* Keeps the link on one line. */
+    white-space: nowrap;
+}
+
+.view-all:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   SECTION 23: RECENT ACTIVITIES TABLE
+   ========================================================= */
+
+.table-wrapper {
+    /*
+       The table can be wider than its container.
+       Horizontal scrolling prevents the entire page
+       from becoming too wide on mobile screens.
+    */
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+
+    /* Combines adjacent table borders into single borders. */
+    border-collapse: collapse;
+
+    text-align: left;
+
+    /*
+       Prevents table cells from wrapping into multiple lines.
+       On small screens, the table wrapper scrolls horizontally.
+    */
+    white-space: nowrap;
+}
+
+thead {
+    background: #f8fafc;
+}
+
+th {
+    padding: 12px 10px;
+
+    color: var(--text-secondary);
+
+    font-size: 10px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+td {
+    padding: 14px 10px;
+
+    border-bottom: 1px solid #f1f5f9;
+
+    color: #475569;
+    font-size: 11px;
+}
+
+/* Removes the bottom border from the final table row. */
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Light background when a user hovers over an activity row. */
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+/* Small icon boxes displayed before activity names. */
+.table-icon {
+    width: 29px;
+    height: 29px;
+
+    margin-right: 8px;
+
+    /*
+       inline-flex keeps the icon aligned with text
+       while allowing it to be centered inside its box.
+    */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+/* Shared styling for activity status labels. */
+.status-badge {
+    display: inline-block;
+
+    padding: 5px 8px;
+    border-radius: 6px;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+/* Green badge for completed activities. */
+.status-badge.success {
+    color: var(--success);
+    background: var(--success-bg);
+}
+
+/* Amber badge for updated or pending statuses. */
+.status-badge.pending {
+    color: var(--warning);
+    background: var(--warning-bg);
+}
+
+
+/* =========================================================
+   SECTION 24: UPCOMING EVENTS
+   ========================================================= */
+
+.event-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.event-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid #f1f5f9;
+}
+
+/* Removes extra top spacing from the first event. */
+.event-item:first-child {
+    padding-top: 0;
+}
+
+/* Removes the bottom divider from the last event. */
+.event-item:last-child {
+    border-bottom: none;
+}
+
+.event-date {
+    width: 48px;
+    min-width: 48px;
+
+    padding: 7px 3px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+
+    border: 1px solid var(--border);
+    border-radius: 9px;
+
+    background: #f8fafc;
+}
+
+.event-date span {
+    color: var(--primary);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.event-date strong {
+    color: var(--text-primary);
+    font-size: 21px;
+    line-height: 1.2;
+}
+
+.event-details {
+    /*
+       Allows event text to shrink instead of overflowing
+       the available width.
+    */
+    min-width: 0;
+}
+
+.event-details h3 {
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.event-details p {
+    color: var(--text-secondary);
+    font-size: 10px;
+    margin-bottom: 7px;
+}
+
+.event-details p i {
+    margin-right: 4px;
+}
+
+/* Shared styling for event category badges. */
+.event-category {
+    display: inline-block;
+
+    padding: 4px 7px;
+    border-radius: 5px;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+/* Different colors distinguish different event categories. */
+.exam-category {
+    color: #b91c1c;
+    background: #fee2e2;
+}
+
+.meeting-category {
+    color: #6d28d9;
+    background: #ede9fe;
+}
+
+.academic-category {
+    color: #0369a1;
+    background: #e0f2fe;
+}
+
+/* Link at the bottom of the events panel. */
+.all-events-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    margin-top: 14px;
+    padding-top: 15px;
+
+    border-top: 1px solid var(--border);
+
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.all-events-link:hover {
+    color: var(--primary-dark);
+}
+
+
+/* =========================================================
+   SECTION 25: FOOTER
+   ========================================================= */
+
+.page-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    /*
+       Allows the footer text to wrap onto another line
+       when the available width is too small.
+    */
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    color: #94a3b8;
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   SECTION 26: KEYBOARD ACCESSIBILITY
+   ========================================================= */
+
+/*
+   :focus-visible highlights elements selected with a keyboard,
+   such as when someone navigates using the Tab key.
+*/
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.45);
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   SECTION 27: RESPONSIVE LAYOUT FOR TABLETS
+   Applies when the viewport width is 1200px or less.
+   ========================================================= */
+
+@media (max-width: 1200px) {
+
+    /*
+       Changes four KPI columns into two.
+       This gives each card more room on smaller screens.
+    */
+    .kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    /*
+       Places analytics and quick actions in one column.
+       They appear one below the other.
+    */
+    .middle-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    /*
+       Places activities and events in one column.
+    */
+    .bottom-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    /* Reduces padding to give content more available space. */
+    .main-content {
+        padding: 24px;
+    }
+}
+
+
+/* =========================================================
+   SECTION 28: SMALL LAPTOPS AND TABLETS
+   Applies when the viewport width is 900px or less.
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    /* Makes the sidebar narrower. */
+    .sidebar {
+        width: 210px;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    /*
+       Updates the main content offset to match the new
+       sidebar width. Both widths must stay consistent.
+    */
+    .main-content {
+        margin-left: 210px;
+    }
+
+    /* Reduces horizontal spacing in the header. */
+    .top-header {
+        padding: 0 20px;
+        gap: 16px;
+    }
+
+    .header-actions {
+        gap: 12px;
+    }
+
+    /*
+       Hides secondary profile text to save horizontal space.
+       The avatar remains visible.
+    */
+    .profile-info,
+    .profile-arrow {
+        display: none;
+    }
+}
+
+
+/* =========================================================
+   SECTION 29: MOBILE RESPONSIVE LAYOUT
+   Applies when the viewport width is 700px or less.
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    /*
+       The header can wrap onto multiple rows.
+       Its height grows automatically when needed.
+    */
+    .top-header {
+        height: auto;
+        min-height: 72px;
+
+        padding: 13px 16px;
+
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .brand-name {
+        font-size: 18px;
+    }
+
+    .brand-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    /*
+       Pushes the header actions to the right of the brand.
+    */
+    .header-actions {
+        margin-left: auto;
+    }
+
+    /*
+       Moves the search box to its own row.
+       order: 3 places it after the brand and header actions.
+    */
+    .header-search {
+        order: 3;
+        max-width: none;
+        flex-basis: 100%;
+    }
+
+    /*
+       On mobile, the sidebar becomes a horizontal navigation bar
+       instead of occupying the left side of the screen.
+    */
+    .sidebar {
+        position: static;
+
+        width: 100%;
+        height: auto;
+
+        padding: 10px 12px;
+
+        display: block;
+
+        /* Allows navigation links to scroll sideways if needed. */
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    /* Hides desktop-only sidebar sections on mobile. */
+    .sidebar-label,
+    .sidebar-help,
+    .logout-link {
+        display: none;
+    }
+
+    .sidebar-nav {
+        width: max-content;
+        min-width: 100%;
+
+        display: flex;
+        flex-direction: row;
+        gap: 6px;
+    }
+
+    .nav-link {
+        min-height: 40px;
+        padding: 0 12px;
+
+        white-space: nowrap;
+        gap: 8px;
+        font-size: 12px;
+    }
+
+    .nav-link i {
+        font-size: 13px;
+    }
+
+    /*
+       Removes the left margin that was needed for the
+       fixed desktop sidebar.
+    */
+    .main-content {
+        margin-left: 0;
+        padding: 22px 16px;
+    }
+
+    /*
+       Stacks the heading and academic-year button vertically.
+    */
+    .page-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        margin-bottom: 22px;
+    }
+
+    .page-heading h1 {
+        font-size: 25px;
+    }
+
+    .date-button {
+        min-height: 40px;
+    }
+
+    .kpi-grid {
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+
+    /* Reduces card padding on small screens. */
+    .kpi-card {
+        padding: 15px;
+    }
+
+    /*
+       Places the icon and trend badge on separate rows
+       inside each KPI card.
+    */
+    .kpi-top {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 14px;
+    }
+
+    .kpi-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 16px;
+    }
+
+    .kpi-card h2 {
+        font-size: 25px;
+    }
+
+    .kpi-footnote {
+        line-height: 1.5;
+    }
+
+    .panel {
+        padding: 17px;
+    }
+
+    .middle-grid,
+    .bottom-grid {
+        gap: 18px;
+        margin-bottom: 18px;
+    }
+
+    .panel-heading {
+        gap: 10px;
+    }
+
+    /* Makes the chart slightly shorter on mobile. */
+    .chart-placeholder {
+        height: 205px;
+    }
+
+    .page-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+
+/* =========================================================
+   SECTION 30: VERY SMALL MOBILE SCREENS
+   Applies when the viewport width is 420px or less.
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+    .main-content {
+        padding: 18px 12px;
+    }
+
+    .top-header {
+        padding: 12px;
+    }
+
+    .profile-avatar {
+        width: 34px;
+        height: 34px;
+        font-size: 11px;
+    }
+
+    .icon-button {
+        width: 34px;
+        height: 34px;
+    }
+
+    /*
+       Uses one KPI card per row on very narrow screens.
+       This prevents the cards from becoming too cramped.
+    */
+    .kpi-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .kpi-card {
+        padding: 18px;
+    }
+
+    /*
+       Restores the horizontal icon-and-trend layout
+       when each KPI card has the full mobile width.
+    */
+    .kpi-top {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .panel {
+        padding: 14px;
+    }
+
+    .panel-heading h2 {
+        font-size: 15px;
+    }
+
+    .panel-heading p {
+        font-size: 11px;
+    }
+
+    .panel-heading select {
+        max-width: 120px;
+        font-size: 11px;
+    }
+
+    .action-card {
+        padding: 10px;
+        gap: 9px;
+    }
+
+    .action-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .chart-placeholder {
+        height: 180px;
+    }
+
+    .chart-y-axis,
+    .chart-x-axis {
+        font-size: 9px;
+    }
+}
+
+
+/* =========================================================
+   SECTION 31: REDUCED MOTION ACCESSIBILITY
+   ========================================================= */
+
+/*
+   Some users prefer less animation because of motion sensitivity.
+   This media query reduces transition and animation duration
+   when their operating system requests reduced motion.
+*/
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
+    }
+}
