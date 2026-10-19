@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Tells the browser that this document uses UTF-8 characters. -->
+    <meta charset="UTF-8">
+
+    <!-- Makes the website adjust to mobile, tablet, and desktop screens. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- The title appears in the browser tab. -->
+    <title>Student Management System - Dashboard</title>
+
+    <!-- Connects this HTML file to the separate CSS file. -->
+    <!-- Both files must be in the same folder for this path to work. -->
+    <link rel="stylesheet" href="Index.css">
+
+    <!-- Loads Font Awesome icons from the internet. -->
+    <!-- Example: fa-house displays a house icon. -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- =====================================================
+         MAIN APPLICATION CONTAINER
+         Contains the complete dashboard interface.
+         ===================================================== -->
+    <div class="app-container">
+
+
+        <!-- =================================================
+             1. TOP HEADER
+             Contains the application logo, search, and profile.
+             ================================================= -->
+        <header class="top-header">
+
+            <!-- Clicking the brand takes the user to the dashboard. -->
+            <a href="Index.html" class="brand">
+
+                <!-- Icon displayed beside the application name. -->
+                <span class="brand-icon">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </span>
+
+                <!-- Application name. -->
+                <span class="brand-name">
+                    Campus<span>Care</span>
+                </span>
+
+            </a>
+
+
+            <!-- Search area for students, courses, and other records. -->
+            <!-- This is only the visual input; JavaScript is needed to search. -->
+            <div class="header-search">
+
+                <!-- Search icon. -->
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <!-- Input where the user can type a search term. -->
+                <input
+                    type="search"
+                    placeholder="Search students, courses..."
+                    aria-label="Search students and courses">
+
+            </div>
+
+
+            <!-- Contains notifications and the administrator profile. -->
+            <div class="header-actions">
+
+                <!-- Notification button. -->
+                <!-- A real notification system needs JavaScript and backend data. -->
+                <button
+                    type="button"
+                    class="icon-button"
+                    aria-label="Notifications">
+
+                    <i class="fa-regular fa-bell"></i>
+
+                    <!-- Small red dot indicating a notification. -->
+                    <span class="notification-dot"></span>
+
+                </button>
+
+
+                <!-- Administrator profile information. -->
+                <div class="profile">
+
+                    <!-- Placeholder initials for the user's profile picture. -->
+                    <div class="profile-avatar">AD</div>
+
+                    <div class="profile-info">
+                        <strong>Admin User</strong>
+                        <span>Administrator</span>
+                    </div>
+
+                    <!-- Small arrow beside the profile. -->
+                    <i class="fa-solid fa-chevron-down profile-arrow"></i>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             2. SIDEBAR NAVIGATION
+             Contains links to the main application pages.
+             ================================================= -->
+        <aside class="sidebar">
+
+            <!-- Sidebar section heading. -->
+            <p class="sidebar-label">MAIN MENU</p>
+
+
+            <!-- The nav element groups navigation links together. -->
+            <nav class="sidebar-nav" aria-label="Main navigation">
+
+                <!-- Dashboard link.
+                     The active class highlights the current page. -->
+                <a
+                    href="Index.html"
+                    class="nav-link active"
+                    aria-current="page">
+
+                    <i class="fa-solid fa-house"></i>
+                    <span>Dashboard</span>
+
+                </a>
+
+
+                <!-- Opens the student list page when that file exists. -->
+                <a href="ViewStudents.html" class="nav-link">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <span>Students</span>
+                </a>
+
+
+                <!-- Opens the academics page when created. -->
+                <a href="Academics.html" class="nav-link">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>Academics</span>
+                </a>
+
+
+                <!-- Opens the attendance management page. -->
+                <a href="Attendance.html" class="nav-link">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>Attendance</span>
+                </a>
+
+
+                <!-- Opens the grades and results page. -->
+                <a href="Grades.html" class="nav-link">
+                    <i class="fa-solid fa-chart-column"></i>
+                    <span>Grades &amp; Results</span>
+                </a>
+
+
+                <!-- Opens the fee management page. -->
+                <a href="Billing.html" class="nav-link">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span>Fees &amp; Billing</span>
+                </a>
+
+
+                <!-- Separates the main menu from additional links. -->
+                <p class="sidebar-label secondary-label">PREFERENCES</p>
+
+
+                <!-- Opens the reports page. -->
+                <a href="Reports.html" class="nav-link">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <span>Reports</span>
+                </a>
+
+
+                <!-- Opens the settings page. -->
+                <a href="Settings.html" class="nav-link">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+
+            </nav>
+
+
+            <!-- Help information displayed near the bottom of the sidebar. -->
+            <div class="sidebar-help">
+
+                <div class="help-icon">
+                    <i class="fa-solid fa-circle-question"></i>
+                </div>
+
+                <h3>Need help?</h3>
+
+                <p>
+                    Contact your system administrator for assistance.
+                </p>
+
+                <!-- Opens the visitor's default email application. -->
+                <!-- Replace this example email with your real support email. -->
+                <a href="mailto:admin@example.com">Get support</a>
+
+            </div>
+
+
+            <!-- Navigates to the login page.
+                 This link alone does not destroy a real login session. -->
+            <a href="LoginPage.html" class="logout-link">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+
+            </a>
+
+        </aside>
+
+
+        <!-- =================================================
+             3. MAIN DASHBOARD CONTENT
+             Everything displayed to the right of the sidebar
+             on desktop screens goes inside this main element.
+             ================================================= -->
+        <main class="main-content">
+
+
+            <!-- Page title and academic-year selector. -->
+            <section class="page-heading">
+
+                <div>
+                    <!-- Small introductory text above the main heading. -->
+                    <p class="welcome-text">WELCOME BACK, ADMIN</p>
+
+                    <!-- Main heading for this page. -->
+                    <h1>Dashboard Overview</h1>
+
+                    <!-- Short description below the heading. -->
+                    <p class="page-description">
+                        Here's what's happening at your institution today.
+                    </p>
+                </div>
+
+
+                <!-- Academic-year selector design.
+                     It is not connected to actual data yet. -->
+                <button type="button" class="date-button">
+
+                    <i class="fa-regular fa-calendar"></i>
+
+                    Academic Year 2026–27
+
+                    <i class="fa-solid fa-chevron-down"></i>
+
+                </button>
+
+            </section>
+
+
+            <!-- =================================================
+                 4. KPI CARDS
+                 KPI means Key Performance Indicator.
+                 These cards display important summary numbers.
+                 ================================================= -->
+            <section class="kpi-grid" aria-label="Institution statistics">
+
+
+                <!-- KPI CARD 1: TOTAL STUDENTS -->
+                <article class="kpi-card">
+
+                    <div class="kpi-top">
+
+                        <!-- Icon for the student statistic. -->
+                        <div class="kpi-icon blue-icon">
+                            <i class="fa-solid fa-user-graduate"></i>
+                        </div>
+
+                        <!-- Example percentage change. -->
+                        <span class="trend positive">
+                            <i class="fa-solid fa-arrow-up"></i>
+                            8.2%
+                        </span>
+
+                    </div>
+
+                    <p class="kpi-label">Total Students</p>
+
+                    <!-- Example value. Replace with database data later. -->
+                    <h2>1,284</h2>
+
+                    <p class="kpi-footnote">
+                        Compared with last semester
+                    </p>
+
+                </article>
+
+
+                <!-- KPI CARD 2: ATTENDANCE RATE -->
+                <article class="kpi-card">
+
+                    <div class="kpi-top">
+
+                        <div class="kpi-icon green-icon">
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </div>
+
+                        <span class="trend positive">
+                            <i class="fa-solid fa-arrow-up"></i>
+                            2.4%
+                        </span>
+
+                    </div>
+
+                    <p class="kpi-label">Attendance Rate</p>
+
+                    <h2>94.2%</h2>
+
+                    <p class="kpi-footnote">
+                        Compared with last week
+                    </p>
+
+                </article>
+
+
+                <!-- KPI CARD 3: FACULTY MEMBERS -->
+                <article class="kpi-card">
+
+                    <div class="kpi-top">
+
+                        <div class="kpi-icon purple-icon">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                        </div>
+
+                        <span class="trend positive">
+                            <i class="fa-solid fa-arrow-up"></i>
+                            3.1%
+                        </span>
+
+                    </div>
+
+                    <p class="kpi-label">Faculty Members</p>
+
+                    <h2>86</h2>
+
+                    <p class="kpi-footnote">
+                        Across all departments
+                    </p>
+
+                </article>
+
+
+                <!-- KPI CARD 4: FEE COLLECTION -->
+                <article class="kpi-card">
+
+                    <div class="kpi-top">
+
+                        <div class="kpi-icon orange-icon">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+
+                        <span class="trend negative">
+                            <i class="fa-solid fa-arrow-down"></i>
+                            1.2%
+                        </span>
+
+                    </div>
+
+                    <p class="kpi-label">Fee Collection</p>
+
+                    <h2>87%</h2>
+
+                    <p class="kpi-footnote">
+                        Of total fees due
+                    </p>
+
+                </article>
+
+            </section>
+
+
+            <!-- =================================================
+                 5. MIDDLE DASHBOARD SECTION
+                 Contains attendance analytics and quick actions.
+                 ================================================= -->
+            <section class="middle-grid">
+
+
+                <!-- ATTENDANCE ANALYTICS PANEL -->
+                <article class="panel analytics-panel">
+
+                    <div class="panel-heading">
+
+                        <div>
+                            <h2>Attendance Analytics</h2>
+
+                            <p>
+                                Track student attendance over time
+                            </p>
+                        </div>
+
+                        <!-- Allows choosing a time period visually.
+                             JavaScript is needed to update the chart. -->
+                        <select aria-label="Attendance time period">
+                            <option>This Week</option>
+                            <option>This Month</option>
+                            <option>This Semester</option>
+                        </select>
+
+                    </div>
+
+
+                    <!-- Chart layout: labels on the left and chart on the right. -->
+                    <div class="chart-placeholder">
+
+                        <!-- Vertical-axis labels. -->
+                        <div class="chart-y-axis">
+                            <span>100%</span>
+                            <span>75%</span>
+                            <span>50%</span>
+                            <span>25%</span>
+                            <span>0%</span>
+                        </div>
+
+
+                        <!-- Main area containing the graph. -->
+                        <div class="chart-area">
+
+                            <!-- Horizontal grid lines behind the graph. -->
+                            <div class="chart-grid-lines">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+
+
+                            <!-- SVG draws a sample line graph without a chart library.
+                                 Its coordinates are illustrative, not real data. -->
+                            <svg
+                                class="attendance-chart"
+                                viewBox="0 0 600 200"
+                                preserveAspectRatio="none"
+                                role="img"
+                                aria-label="Illustrative attendance trend chart">
+
+                                <!-- Gradient used to shade the area under the line. -->
+                                <defs>
+                                    <linearGradient
+                                        id="attendanceFill"
+                                        x1="0"
+                                        y1="0"
+                                        x2="0"
+                                        y2="1">
+
+                                        <stop
+                                            offset="0%"
+                                            stop-color="#2563eb"
+                                            stop-opacity="0.22" />
+
+                                        <stop
+                                            offset="100%"
+                                            stop-color="#2563eb"
+                                            stop-opacity="0.01" />
+
+                                    </linearGradient>
+                                </defs>
+
+
+                                <!-- Filled area below the attendance line. -->
+                                <path
+                                    d="M 0 105
+                                       L 100 75
+                                       L 200 95
+                                       L 300 45
+                                       L 400 65
+                                       L 500 25
+                                       L 600 40
+                                       L 600 200
+                                       L 0 200 Z"
+                                    fill="url(#attendanceFill)" />
+
+
+                                <!-- Connects the points to form the graph line. -->
+                                <polyline
+                                    points="0,105 100,75 200,95 300,45
+                                            400,65 500,25 600,40"
+                                    fill="none"
+                                    stroke="#2563eb"
+                                    stroke-width="3"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round" />
+
+
+                                <!-- Marks one point on the line. -->
+                                <circle
+                                    cx="500"
+                                    cy="25"
+                                    r="5"
+                                    fill="#2563eb" />
+
+                            </svg>
+
+
+                            <!-- Labels along the horizontal axis. -->
+                            <div class="chart-x-axis">
+                                <span>Mon</span>
+                                <span>Tue</span>
+                                <span>Wed</span>
+                                <span>Thu</span>
+                                <span>Fri</span>
+                                <span>Sat</span>
+                                <span>Sun</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Explains what the blue graph represents. -->
+                    <div class="chart-legend">
+                        <span class="legend-dot"></span>
+                        <span>Attendance percentage</span>
+                    </div>
+
+                </article>
+
+
+                <!-- QUICK ACTIONS PANEL -->
+                <article class="panel quick-actions-panel">
+
+                    <div class="panel-heading">
+                        <div>
+                            <h2>Quick Actions</h2>
+                            <p>Common administrative tasks</p>
+                        </div>
+                    </div>
+
+
+                    <!-- Each action links to a different application page. -->
+                    <div class="quick-actions-grid">
+
+
+                        <!-- Add student action. -->
+                        <a href="AddStudent.html" class="action-card">
+
+                            <span class="action-icon blue-icon">
+                                <i class="fa-solid fa-user-plus"></i>
+                            </span>
+
+                            <span>
+                                <strong>Add Student</strong>
+                                <small>Register a new student</small>
+                            </span>
+
+                            <i class="fa-solid fa-arrow-right action-arrow"></i>
+
+                        </a>
+
+
+                        <!-- Attendance action. -->
+                        <a href="Attendance.html" class="action-card">
+
+                            <span class="action-icon green-icon">
+                                <i class="fa-solid fa-clipboard-check"></i>
+                            </span>
+
+                            <span>
+                                <strong>Mark Attendance</strong>
+                                <small>Update class attendance</small>
+                            </span>
+
+                            <i class="fa-solid fa-arrow-right action-arrow"></i>
+
+                        </a>
+
+
+                        <!-- Grades action. -->
+                        <a href="Grades.html" class="action-card">
+
+                            <span class="action-icon purple-icon">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </span>
+
+                            <span>
+                                <strong>Enter Grades</strong>
+                                <small>Manage student results</small>
+                            </span>
+
+                            <i class="fa-solid fa-arrow-right action-arrow"></i>
+
+                        </a>
+
+
+                        <!-- Reports action. -->
+                        <a href="Reports.html" class="action-card">
+
+                            <span class="action-icon orange-icon">
+                                <i class="fa-solid fa-file-export"></i>
+                            </span>
+
+                            <span>
+                                <strong>Generate Report</strong>
+                                <small>View institution reports</small>
+                            </span>
+
+                            <i class="fa-solid fa-arrow-right action-arrow"></i>
+
+                        </a>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+
+            <!-- =================================================
+                 6. BOTTOM DASHBOARD SECTION
+                 Contains recent activities and upcoming events.
+                 ================================================= -->
+            <section class="bottom-grid">
+
+
+                <!-- RECENT ACTIVITIES PANEL -->
+                <article class="panel activity-panel">
+
+                    <div class="panel-heading">
+
+                        <div>
+                            <h2>Recent Activities</h2>
+                            <p>Latest updates from your institution</p>
+                        </div>
+
+                        <a href="Reports.html" class="view-all">
+                            View all
+                        </a>
+
+                    </div>
+
+
+                    <!-- Allows the table to scroll horizontally on small screens. -->
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <!-- Column headings. -->
+                            <thead>
+                                <tr>
+                                    <th>Activity</th>
+                                    <th>Student / User</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+
+
+                            <!-- Example activity records. -->
+                            <tbody>
+
+                                <!-- Activity row 1. -->
+                                <tr>
+                                    <td>
+                                        <span class="table-icon blue-icon">
+                                            <i class="fa-solid fa-user-plus"></i>
+                                        </span>
+                                        New registration
+                                    </td>
+
+                                    <td>Rahul Sharma</td>
+                                    <td>Today</td>
+
+                                    <td>
+                                        <span class="status-badge success">
+                                            Completed
+                                        </span>
+                                    </td>
+                                </tr>
+
+
+                                <!-- Activity row 2. -->
+                                <tr>
+                                    <td>
+                                        <span class="table-icon green-icon">
+                                            <i class="fa-solid fa-wallet"></i>
+                                        </span>
+                                        Fee payment
+                                    </td>
+
+                                    <td>Priya Patel</td>
+                                    <td>Today</td>
+
+                                    <td>
+                                        <span class="status-badge success">
+                                            Completed
+                                        </span>
+                                    </td>
+                                </tr>
+
+
+                                <!-- Activity row 3. -->
+                                <tr>
+                                    <td>
+                                        <span class="table-icon purple-icon">
+                                            <i class="fa-solid fa-file-lines"></i>
+                                        </span>
+                                        Grade updated
+                                    </td>
+
+                                    <td>Amit Verma</td>
+                                    <td>Yesterday</td>
+
+                                    <td>
+                                        <span class="status-badge pending">
+                                            Updated
+                                        </span>
+                                    </td>
+                                </tr>
+
+
+                                <!-- Activity row 4. -->
+                                <tr>
+                                    <td>
+                                        <span class="table-icon orange-icon">
+                                            <i class="fa-solid fa-calendar-check"></i>
+                                        </span>
+                                        Attendance marked
+                                    </td>
+
+                                    <td>Computer Science</td>
+                                    <td>Yesterday</td>
+
+                                    <td>
+                                        <span class="status-badge success">
+                                            Completed
+                                        </span>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </article>
+
+
+                <!-- UPCOMING EVENTS PANEL -->
+                <article class="panel events-panel">
+
+                    <div class="panel-heading">
+
+                        <div>
+                            <h2>Upcoming Events</h2>
+                            <p>Important academic dates</p>
+                        </div>
+
+                        <a href="Academics.html" class="view-all">
+                            View all
+                        </a>
+
+                    </div>
+
+
+                    <!-- Groups the upcoming events vertically. -->
+                    <div class="event-list">
+
+
+                        <!-- Event 1. -->
+                        <div class="event-item">
+
+                            <!-- Date shown inside a calendar-like box. -->
+                            <div class="event-date">
+                                <span>OCT</span>
+                                <strong>22</strong>
+                            </div>
+
+                            <div class="event-details">
+
+                                <h3>Mid-term Examinations</h3>
+
+                                <p>
+                                    <i class="fa-regular fa-clock"></i>
+                                    10:00 AM – 1:00 PM
+                                </p>
+
+                                <span class="event-category exam-category">
+                                    Examination
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Event 2. -->
+                        <div class="event-item">
+
+                            <div class="event-date">
+                                <span>OCT</span>
+                                <strong>25</strong>
+                            </div>
+
+                            <div class="event-details">
+
+                                <h3>Faculty Meeting</h3>
+
+                                <p>
+                                    <i class="fa-regular fa-clock"></i>
+                                    2:00 PM – 3:00 PM
+                                </p>
+
+                                <span class="event-category meeting-category">
+                                    Meeting
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Event 3. -->
+                        <div class="event-item">
+
+                            <div class="event-date">
+                                <span>NOV</span>
+                                <strong>02</strong>
+                            </div>
+
+                            <div class="event-details">
+
+                                <h3>Project Submission</h3>
+
+                                <p>
+                                    <i class="fa-regular fa-clock"></i>
+                                    Before 5:00 PM
+                                </p>
+
+                                <span class="event-category academic-category">
+                                    Academic
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Link to the academic calendar page. -->
+                    <a href="Academics.html" class="all-events-link">
+
+                        View academic calendar
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                </article>
+
+            </section>
+
+
+            <!-- =================================================
+                 7. FOOTER
+                 Displayed at the bottom of the dashboard.
+                 ================================================= -->
+            <footer class="page-footer">
+
+                <p>
+                    &copy; 2026 CampusCare Student Management System
+                </p>
+
+                <p>
+                    Made for better campus management
+                </p>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+</body>
+</html>
